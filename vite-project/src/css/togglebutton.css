@@ -1,0 +1,11 @@
+.btn {
+    padding: 5px 10px;
+    background: #007bff;
+    border-radius: 5px;
+    transition: .3s;
+    margin: 10px 0;
+}
+
+.none {
+    visibility: hidden;
+}

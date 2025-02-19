@@ -1,0 +1,9 @@
+.input {
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.input:focus {
+    border: 2px solid orange
+}

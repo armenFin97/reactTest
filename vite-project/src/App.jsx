@@ -3,6 +3,7 @@ import Counter from './Components/Counter.jsx';
 import InputHandler from './Components/InputHandler.jsx';
 import ToggleButton from './Components/ToggleButton.jsx';
 import TextToggle from './Components/TextToggle.jsx';
+import ListSorting from './Components/ListSorting.jsx';
 
 function App() {
     return (<main>
@@ -17,6 +18,9 @@ function App() {
         </section>
         <section>
             <TextToggle/>
+        </section>
+        <section>
+            <ListSorting/>
         </section>
     </main>)
 }

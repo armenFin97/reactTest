@@ -7,18 +7,18 @@ import ListSorting from './Components/ListSorting.jsx';
 
 function App() {
     return (<main>
-        <section>
-            <Counter/>
-        </section>
-        <section>
-            <InputHandler/>
-        </section>
-        <section>
-            <ToggleButton/>
-        </section>
-        <section>
-            <TextToggle/>
-        </section>
+        {/*<section>*/}
+        {/*    <Counter/>*/}
+        {/*</section>*/}
+        {/*<section>*/}
+        {/*    <InputHandler/>*/}
+        {/*</section>*/}
+        {/*<section>*/}
+        {/*    <ToggleButton/>*/}
+        {/*</section>*/}
+        {/*<section>*/}
+        {/*    <TextToggle/>*/}
+        {/*</section>*/}
         <section>
             <ListSorting/>
         </section>

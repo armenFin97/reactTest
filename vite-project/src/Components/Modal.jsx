@@ -1,6 +1,6 @@
 import "../css/modal.css";
 
-export function Modal({ isOpen, onClose, q }) {
+export function Modal({ isOpen, onClose, children }) {
     if (!isOpen) return null;
     return (
         <div className="modal modal--open">
@@ -12,5 +12,3 @@ export function Modal({ isOpen, onClose, q }) {
         </div>
     );
 }
-
-

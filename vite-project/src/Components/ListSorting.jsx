@@ -1,5 +1,6 @@
-import {useState} from "react";
-import {Modal} from "./Modal.jsx"
+import { useState } from "react";
+import { Modal } from "./Modal.jsx"
+import { InputField } from "./InputField.jsx"
 import "../css/listsorting.css";
 
 export default function ListSorting() {
@@ -21,6 +22,48 @@ export default function ListSorting() {
     ]);
     
     const [isAscending, setIsAscending] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
+    const [newUser, setNewUser] = useState({ firstname: "", lastname: "", email: "", password: "" });
+    const [darkMode, setDarkMode] = useState(false);
+    
+    function toggleDarkMode() {
+        setDarkMode(!darkMode);
+    }
+    
+    function handleInputChange(e) {
+        const { name, value } = e.target;
+        setNewUser((prev) => ({ ...prev, [name]: value }));
+    }
+    
+    function isValidInput() {
+        const nameRegex = /^[A-Z][A-z]{3,}$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+        const passwordRegex = /^(?=(.*\d){3,})(?=(.*\w){5,}).*$/;
+        
+        if (!nameRegex.test(newUser.firstname) || !nameRegex.test(newUser.lastname)) {
+            return false;
+        }
+        if (!emailRegex.test(newUser.email)) {
+            return false;
+        }
+        return passwordRegex.test(newUser.password);
+        
+    }
+    
+    function addUser() {
+        if (!isValidInput()) return;
+        
+        const newId = users.length ? Math.max(...users.map((u) => u.id)) + 1 : 1;
+        const newUserData = {
+            id: newId,
+            name: `${newUser.firstname} ${newUser.lastname}`,
+            email: newUser.email,
+            password: newUser.password
+        };
+        
+        setUsers([...users, newUserData]);
+        closeModal();
+    }
     
     function sortUsers(sortBy) {
         let sortedUsers = [...users];
@@ -41,52 +84,49 @@ export default function ListSorting() {
         setUsers(users.filter(user => user.id !== id));
     }
     
-    const [isOpen, setIsOpen] = useState(false);
+    function closeModal() {
+        setIsOpen(false);
+        setNewUser({ firstname: "", lastname: "", email: "", password: "" });
+    }
     
     return (
-        
-        <div className="table-container">
+        <div className={`table-container ${darkMode ? "dark-mode" : ""}`}>
             <div className="flex">
-                {isOpen && <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                    <h2>Add User</h2>
-                    <p>Here you can add a new user.</p>
-                </Modal>}
-                
-                
+                <button className="btn toggle-theme" onClick={toggleDarkMode}>
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                </button>
+                {isOpen && (
+                    <Modal isOpen={isOpen} onClose={closeModal}>
+                        <div>
+                            <InputField label="First Name" type="text" name="firstname" value={newUser.firstname} onChange={handleInputChange} placeholder="First Name" />
+                            <InputField label="Last Name" type="text" name="lastname" value={newUser.lastname} onChange={handleInputChange} placeholder="Last Name" />
+                            <InputField label="Email" type="email" name="email" value={newUser.email} onChange={handleInputChange} placeholder="example@gmail.com" />
+                            <InputField label="Password" type="password" name="password" value={newUser.password} onChange={handleInputChange} placeholder="example123" />
+                            <button className="btn submit" onClick={addUser}>Submit</button>
+                        </div>
+                    </Modal>
+                )}
                 <button className="btn crt" onClick={() => setIsOpen(true)}>Add user</button>
-            
             </div>
             <table className="table">
                 <thead className="table__head">
                 <tr>
-                    <th className="table__header table__sort" onClick={() => {
-                        sortUsers('id')
-                    }}>ID
-                    </th>
-                    <th className="table__header table__sort" onClick={() => {
-                        sortUsers('name')
-                    }}>Name
-                    </th>
-                    <th className="table__header table__sort" onClick={() => {
-                        sortUsers('email')
-                    }}>Email
-                    </th>
+                    <th className="table__header table__sort" onClick={() => sortUsers("id")}>ID</th>
+                    <th className="table__header table__sort" onClick={() => sortUsers("name")}>Name</th>
+                    <th className="table__header table__sort" onClick={() => sortUsers("email")}>Email</th>
                     <th className="table__header">Password</th>
                     <th className="table__header"></th>
                 </tr>
                 </thead>
                 <tbody className="table__body">
-                {users.map(user => (
+                {users.map((user) => (
                     <tr key={user.id} className="table__row">
                         <td className="table__cell">{user.id}</td>
                         <td className="table__cell">{user.name}</td>
                         <td className="table__cell">{user.email}</td>
                         <td className="table__cell">{user.password}</td>
                         <td className="table__cell">
-                            <button onClick={() => {
-                                deleteUser(user.id)
-                            }} className="btn dlt">delete
-                            </button>
+                            <button onClick={() => deleteUser(user.id)} className="btn dlt">Delete</button>
                         </td>
                     </tr>
                 ))}

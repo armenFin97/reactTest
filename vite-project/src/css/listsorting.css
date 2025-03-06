@@ -96,6 +96,10 @@
     .input:focus {
         border-color: #007bff;
     }
+
+    .active {
+        background-color: #333333;
+    }
 }
 
 .dark-mode {
@@ -140,6 +144,8 @@
         background: #ae6600;
         color: white;
     }
+
+
 }
 
 

@@ -1,4 +1,4 @@
-export function InputField({ label, type = "text", name, value, onChange, placeholder }) {
+export function InputField({ label, type = "text", name, value, onChange, placeholder, autoComplete }) {
     return (
         <div className="input__wrapper">
             <label htmlFor={name} className="label">
@@ -11,6 +11,7 @@ export function InputField({ label, type = "text", name, value, onChange, placeh
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                autoComplete={autoComplete || 'off'}
                 className="input"
             />
         </div>

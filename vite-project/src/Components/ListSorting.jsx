@@ -25,6 +25,7 @@ export default function ListSorting() {
     const [isOpen, setIsOpen] = useState(false);
     const [newUser, setNewUser] = useState({ firstname: "", lastname: "", email: "", password: "" });
     const [darkMode, setDarkMode] = useState(false);
+    const [activeBtn, setActiveBtn] = useState(false);
     
     function toggleDarkMode() {
         setDarkMode(!darkMode);
@@ -86,6 +87,7 @@ export default function ListSorting() {
     
     function closeModal() {
         setIsOpen(false);
+        setActiveBtn(false);
         setNewUser({ firstname: "", lastname: "", email: "", password: "" });
     }
     
@@ -98,15 +100,24 @@ export default function ListSorting() {
                 {isOpen && (
                     <Modal isOpen={isOpen} onClose={closeModal}>
                         <div>
-                            <InputField label="First Name" type="text" name="firstname" value={newUser.firstname} onChange={handleInputChange} placeholder="First Name" />
-                            <InputField label="Last Name" type="text" name="lastname" value={newUser.lastname} onChange={handleInputChange} placeholder="Last Name" />
-                            <InputField label="Email" type="email" name="email" value={newUser.email} onChange={handleInputChange} placeholder="example@gmail.com" />
-                            <InputField label="Password" type="password" name="password" value={newUser.password} onChange={handleInputChange} placeholder="example123" />
+                            <InputField label="First Name" type="text" name="firstname" value={newUser.firstname} onChange={handleInputChange} placeholder="First Name"   autoComplete="given-name"  />
+                            <InputField label="Last Name" type="text" name="lastname" value={newUser.lastname} onChange={handleInputChange} placeholder="Last Name" autoComplete="family-name" />
+                            <InputField label="Email" type="email" name="email" value={newUser.email} onChange={handleInputChange} placeholder="example@gmail.com"  autoComplete="email" />
+                            <InputField label="Password" type="password" name="password" value={newUser.password} onChange={handleInputChange} placeholder="example123" autoComplete="new-password" />
                             <button className="btn submit" onClick={addUser}>Submit</button>
                         </div>
                     </Modal>
                 )}
-                <button className="btn crt" onClick={() => setIsOpen(true)}>Add user</button>
+                <button
+                    className={`btn crt ${activeBtn ? 'active' : ''}`}
+                    onClick={() => {
+                        setIsOpen(true);
+                        setActiveBtn(!activeBtn);
+                    }}
+                >
+                    Add user
+                </button>
+            
             </div>
             <table className="table">
                 <thead className="table__head">

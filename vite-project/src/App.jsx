@@ -7,9 +7,9 @@ import ListSorting from './Components/ListSorting.jsx';
 
 function App() {
     return (<main>
-        {/*<section>*/}
-        {/*    <Counter/>*/}
-        {/*</section>*/}
+        <section>
+            <Counter/>
+        </section>
         {/*<section>*/}
         {/*    <InputHandler/>*/}
         {/*</section>*/}
